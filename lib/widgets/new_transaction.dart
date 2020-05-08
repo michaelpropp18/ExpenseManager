@@ -11,16 +11,16 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final amountController = TextEditingController();
 
-  void onSumbit() {
+  void onSubmit() {
     final title = titleController.text;
     final amount = double.parse(amountController.text);
     if (title.isEmpty || amount <= 0) {
       return;
     }
     widget.addFunction(title, amount);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -33,15 +33,18 @@ class _NewTransactionState extends State<NewTransaction> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               TextField(
-                  decoration: InputDecoration(labelText: 'Title'),
-                  controller: titleController,),
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: titleController,
+              ),
               TextField(
-                  decoration: InputDecoration(labelText: 'Amount'),
-                  controller: amountController),
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: amountController,
+                onSubmitted: (_) => onSubmit(),
+              ),
               FlatButton(
                 child: Text('Add Transaction'),
-                textColor: Colors.purple,
-                onPressed: onSumbit,
+                textColor: Theme.of(context).primaryColor,
+                onPressed: onSubmit,
               ),
             ],
           ),

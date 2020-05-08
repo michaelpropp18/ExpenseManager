@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //width: double.infinity,
-      height: 300,
+      height: double.infinity,
       child: ListView(
         children: transactions.map((t) {
           return Card(
@@ -20,11 +20,12 @@ class TransactionList extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.purple)),
+                        border: Border.all(
+                            width: 2, color: Theme.of(context).primaryColor)),
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    child: Text('\$${t.amount.toStringAsFixed(2)}', 
+                    child: Text('\$${t.amount.toStringAsFixed(2)}',
                         style: TextStyle(
-                            color: Colors.purple,
+                            color: Theme.of(context).primaryColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                     padding: EdgeInsets.all(10),
@@ -34,8 +35,7 @@ class TransactionList extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         t.title,
-                        style:
-                            TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.title,
                       ),
                       Text(DateFormat('M/d/y').format(t.date),
                           style: TextStyle(
