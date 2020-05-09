@@ -5,14 +5,15 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTransaction;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       //width: double.infinity,
-      height: 500,
+      height: 420,
       child: transactions.isEmpty
           ? Column(
               children: <Widget>[
@@ -29,6 +30,7 @@ class TransactionList extends StatelessWidget {
               children: transactions.map((t) {
                 return Card(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
@@ -44,20 +46,26 @@ class TransactionList extends StatelessWidget {
                                   fontWeight: FontWeight.bold)),
                           padding: EdgeInsets.all(10),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              t.title,
-                              style: Theme.of(context).textTheme.title,
-                            ),
-                            Text(DateFormat('M/d/y').format(t.date),
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                )),
-                          ],
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                t.title,
+                                style: Theme.of(context).textTheme.title,
+                              ),
+                              Text(DateFormat('M/d/y').format(t.date),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                  )),
+                            ],
+                          ),
                         ),
+                        IconButton(
+                          icon: Icon(Icons.delete), onPressed: () {deleteTransaction(t.id);},
+                        )
                       ],
                     ),
                     color: Colors.white);

@@ -50,7 +50,7 @@ class Chart extends StatelessWidget {
                       ? 0.0
                       : (data['amount'] as double) / maxSpending),
             );
-          }).toList(),
+          }).toList().reversed.toList(),
         ),
       ),
     );
